@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Release Radar | Production alignment</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="logo">◎</span>
+        <span>Release<span class="brand-light">Radar</span></span>
+      </a>
+
+      <div class="nav-label">WORKSPACE</div>
+      <div class="nav-item active"><span>▦</span> Release overview</div>
+      <a class="nav-item" href="/api/state" target="_blank" rel="noopener">
+        <span>⌘</span> Snapshot API
+      </a>
+      <a class="nav-item" href="/api/health" target="_blank" rel="noopener">
+        <span>♡</span> API health
+      </a>
+
+      <div class="sidebar-note">
+        <div class="note-icon">◉</div>
+        <strong>Production-first visibility</strong>
+        <p>Know what is running before deciding what needs releasing.</p>
+      </div>
+      <div class="sidebar-footer">
+        <span class="dot"></span> .NET 8 · GitHub · Kubernetes
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <span class="breadcrumb">Engineering / <strong>Release alignment</strong></span>
+        <div class="topbar-right">
+          <span class="environment">● Production scope</span>
+          <span id="mode" class="mode">STARTING</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="hero">
+          <div>
+            <div class="eyebrow">YOUR RELEASE CONTROL CENTER</div>
+            <h1>What’s running.<br><span>What’s waiting.</span></h1>
+            <p>Close the gap between your repositories and production.</p>
+          </div>
+          <div class="hero-actions">
+            <button id="refresh" class="primary">↻ Refresh inventory</button>
+            <span id="scan-status">Preparing first scan…</span>
+          </div>
+        </section>
+
+        <div id="notices" aria-live="polite"></div>
+        <div id="action-message" class="action-message" role="status"></div>
+
+        <section class="metrics" id="metrics" aria-label="Alignment metrics"></section>
+
+        <section class="repositories">
+          <div class="panel-heading">
+            <div>
+              <h2>Production repositories <span id="repo-count">0</span></h2>
+              <p>Runtime versions compared against trunk and release branch heads</p>
+            </div>
+            <span id="source" class="source">—</span>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-wrap">
+              <span>⌕</span>
+              <input id="search" type="search"
+                placeholder="Search repository, namespace, or branch..."
+                aria-label="Search repositories">
+            </div>
+
+            <select id="filter" aria-label="Filter alignment state">
+              <option value="">All states</option>
+              <option>Aligned</option>
+              <option>Pending</option>
+              <option>Diverged</option>
+              <option>Production ahead</option>
+              <option>Unknown</option>
+              <option>Mixed rollout</option>
+            </select>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Repository</th>
+                  <th>Production SHA</th>
+                  <th>Trunk drift</th>
+                  <th>Release drift</th>
+                  <th>Alignment</th>
+                  <th><span class="sr-only">Details</span></th>
+                </tr>
+              </thead>
+              <tbody id="rows">
+                <tr><td colspan="6" class="empty">Loading your dashboard…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <span id="results-count">Waiting for inventory</span>
+            <span>Trunk and release counts are not additive.</span>
+          </div>
+        </section>
+
+        <section class="explainer">
+          <div class="explainer-icon">⌁</div>
+          <div>
+            <strong>Ahead of production ≠ deployed</strong>
+            <p>
+              “Not live” counts branch commits absent from a production SHA.
+              “Production-only” identifies commits missing from the branch.
+              Mixed rollouts compare every observed production version.
+            </p>
+          </div>
+        </section>
+
+        <footer>
+          <span id="updated">Waiting for first observation…</span>
+          <span>Git ancestry visibility · Not a release approval gate</span>
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

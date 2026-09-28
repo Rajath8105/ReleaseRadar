@@ -1,0 +1,23 @@
+﻿{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Release Radar: Debug Demo",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/backend/bin/Debug/net8.0/ReleaseRadar.Api.dll",
+      "cwd": "${workspaceFolder}/backend",
+      "console": "internalConsole",
+      "env": {
+        "Mode": "Demo",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5080"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    }
+  ]
+}

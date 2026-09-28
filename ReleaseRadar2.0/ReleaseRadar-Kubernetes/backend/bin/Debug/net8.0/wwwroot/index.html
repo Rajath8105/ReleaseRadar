@@ -1,0 +1,125 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Release Radar</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <a class="brand" href="/"><span class="logo">â—Ž</span> Release<span>Radar</span></a>
+      <div class="nav-label">ENGINEERING WORKSPACE</div>
+      <div class="nav active">â–¦ &nbsp; Release overview</div>
+      <a class="nav" href="/api/state" target="_blank" rel="noopener">âŒ˜ &nbsp; Snapshot API</a>
+      <a class="nav" href="/api/health" target="_blank" rel="noopener">â™¡ &nbsp; API health</a>
+      <div class="aside-note">
+        <strong>Production-first visibility</strong>
+        <p>Actual runtime images.<br>Immutable Git comparisons.<br>Read-only discovery.</p>
+      </div>
+      <div class="aside-footer">.NET 8 Â· Kubernetes Â· GitHub</div>
+    </aside>
+
+    <main>
+      <header>
+        <span>Engineering / <strong>Release alignment</strong></span>
+        <span class="pill" id="mode">STARTING</span>
+      </header>
+
+      <div class="content">
+        <section class="hero">
+          <div>
+            <div class="eyebrow">PRODUCTION â†’ REPOSITORY</div>
+            <h1>Whatâ€™s running.<br><span>Whatâ€™s waiting.</span></h1>
+            <p>Compare production source versions with trunk and release branches.</p>
+          </div>
+          <div class="actions">
+            <button id="refresh">â†» Refresh inventory</button>
+            <span id="scan-info">Preparing first scanâ€¦</span>
+          </div>
+        </section>
+
+        <div class="scope">
+          <span>Context <strong id="context">â€”</strong></span>
+          <span>Namespace <strong id="namespace">â€”</strong></span>
+          <span>Deployments discovered <strong id="discovered">â€”</strong></span>
+        </div>
+
+        <div id="notices" aria-live="polite"></div>
+        <div id="action-message" role="status"></div>
+
+        <section id="metrics" class="metrics"></section>
+
+        <section class="panel">
+          <div class="panel-title">
+            <div>
+              <h2>Production services</h2>
+              <p>Ready container images mapped to Git source commits</p>
+            </div>
+            <span class="pill" id="count">0 services</span>
+          </div>
+
+          <div class="toolbar">
+            <input id="search" type="search"
+              placeholder="Search service, repository, or deploymentâ€¦"
+              aria-label="Search services">
+
+            <select id="filter" aria-label="Filter status">
+              <option value="">All states</option>
+              <option>Aligned</option>
+              <option>Pending</option>
+              <option>Diverged</option>
+              <option>Production ahead</option>
+              <option>Unknown</option>
+              <option>No live version</option>
+              <option>Missing workload</option>
+              <option>Mixed versions</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Service / Repository</th>
+                  <th>Production image tag</th>
+                  <th>Trunk drift</th>
+                  <th>Release drift</th>
+                  <th>Status</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="rows">
+                <tr><td colspan="6" class="empty">Loading dashboardâ€¦</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <span id="results">Waiting for data</span>
+            <span>Trunk and release counts overlap; do not add them.</span>
+          </div>
+        </section>
+
+        <div class="explanation">
+          <strong>How to read this dashboard</strong>
+          <p>
+            â€œNot liveâ€ means branch commits absent from production Git history.
+            â€œProduction-onlyâ€ means production commits absent from that branch.
+            Counts describe ancestry, not semantic code equivalence or feature flags.
+            Image-to-source identity relies on your Jenkins tag convention.
+          </p>
+        </div>
+
+        <footer>
+          <span id="updated">Waiting for first observationâ€¦</span>
+          <span>Read-only visibility Â· Not a release approval gate</span>
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

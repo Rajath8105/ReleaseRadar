@@ -1,0 +1,15 @@
+{
+  "generatedAtUtc": "REPLACE_WITH_CURRENT_UTC_TIMESTAMP",
+  "deployments": [
+    {
+      "repo": "your-organization/payments-api",
+      "sha": "REPLACE_WITH_FULL_40_CHARACTER_PRODUCTION_COMMIT_SHA",
+      "releaseBranch": "release/1.0",
+      "namespace": "production",
+      "workload": "payments-api",
+      "container": "app",
+      "imageDigest": "sha256:REPLACE_WITH_64_HEX_CHARACTER_DIGEST",
+      "evidence": "External inventory"
+    }
+  ]
+}
